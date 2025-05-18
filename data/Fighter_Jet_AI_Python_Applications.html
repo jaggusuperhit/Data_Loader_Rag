@@ -1,0 +1,141 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI and Python in Fighter Jet Development</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        @media (max-width: 600px) {
+            table, th, td {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>AI and Python in Fighter Jet Development</h1>
+    <p>This table outlines key applications of Artificial Intelligence (AI) in fighter jet development, focusing on how Python supports these tasks. It covers professional aerospace, simulation, and hobbyist contexts, detailing AI roles, Python libraries, required skills, and example tasks.</p>
+    <table>
+        <tr>
+            <th>Application</th>
+            <th>AI Role</th>
+            <th>Python Libraries</th>
+            <th>Required Skills</th>
+            <th>Example Task</th>
+        </tr>
+        <tr>
+            <td>Aerodynamic Optimization</td>
+            <td>Optimize airframe shapes for drag, lift, or stealth</td>
+            <td>TensorFlow, PyTorch, NumPy, Pandas, Matplotlib</td>
+            <td>Regression models, data preprocessing, hyperparameter tuning</td>
+            <td>Train a neural network to predict lift coefficients based on wing geometry</td>
+        </tr>
+        <tr>
+            <td>Autonomous Flight Control</td>
+            <td>Enable semi-autonomous or fully autonomous flight</td>
+            <td>Stable-Baselines3, RLlib, PyTorch, rospy, NumPy</td>
+            <td>Reinforcement learning (DQN, PPO), sensor data processing, real-time control</td>
+            <td>Train a drone to follow waypoints using reinforcement learning</td>
+        </tr>
+        <tr>
+            <td>Target Recognition</td>
+            <td>Identify targets from radar or camera feeds</td>
+            <td>OpenCV, TensorFlow, Keras, Pillow</td>
+            <td>Image preprocessing, CNN architectures (ResNet, YOLO), transfer learning</td>
+            <td>Detect enemy aircraft in a simulator using a convolutional neural network</td>
+        </tr>
+        <tr>
+            <td>CAD Automation</td>
+            <td>Automate airframe or component design</td>
+            <td>bpy (Blender), NumPy</td>
+            <td>3D geometry (Bézier curves), API scripting, optimization algorithms</td>
+            <td>Script Blender to create a parametric wing shape</td>
+        </tr>
+        <tr>
+            <td>Game-Based Jet AI</td>
+            <td>Add intelligent behaviors to virtual jets</td>
+            <td>PyGame (for custom simulators), NumPy</td>
+            <td>Pathfinding (A* algorithm), state machines, physics calculations</td>
+            <td>Script a jet in PyGame to avoid obstacles</td>
+        </tr>
+    </table>
+</body>
+</html>

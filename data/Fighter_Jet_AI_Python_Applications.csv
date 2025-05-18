@@ -1,0 +1,6 @@
+Application,AI_Role,Python_Libraries,Required_Skills,Example_Task
+Aerodynamic_Optimization,"Optimize airframe shapes for drag, lift, or stealth","TensorFlow, PyTorch, NumPy, Pandas, Matplotlib","Regression models, data preprocessing, hyperparameter tuning","Train a neural network to predict lift coefficients based on wing geometry"
+Autonomous_Flight_Control,"Enable semi-autonomous or fully autonomous flight","Stable-Baselines3, RLlib, PyTorch, rospy, NumPy","Reinforcement learning (DQN, PPO), sensor data processing, real-time control","Train a drone to follow waypoints using reinforcement learning"
+Target_Recognition,"Identify targets from radar or camera feeds","OpenCV, TensorFlow, Keras, Pillow","Image preprocessing, CNN architectures (ResNet, YOLO), transfer learning","Detect enemy aircraft in a simulator using a convolutional neural network"
+CAD_Automation,"Automate airframe or component design","bpy (Blender), NumPy","3D geometry (Bézier curves), API scripting, optimization algorithms","Script Blender to create a parametric wing shape"
+Game_Based_Jet_AI,"Add intelligent behaviors to virtual jets","PyGame (for custom simulators), NumPy","Pathfinding (A* algorithm), state machines, physics calculations","Script a jet in PyGame to avoid obstacles"
